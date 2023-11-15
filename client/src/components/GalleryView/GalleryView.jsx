@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { HeartOutlined, HeartFilled, CopyOutlined, EditOutlined } from '@ant-design/icons';
+import placeholderImage from "../../assets/placeholder-gallery-image.jpg";
 import './GalleryView.less';
 import DemoData from "../../../DemoData.json"
 
-import './GalleryView.less';
-import DemoData from "../../../DemoData.json"
 
 export default function GalleryView({searchParams, setSearchParams, filterText, classroomId, privacySetting}){
     const [tab, setTab] = useState(
@@ -18,13 +17,11 @@ export default function GalleryView({searchParams, setSearchParams, filterText, 
     const [CopyIcon, setCopyIcon] = useState(CopyOutlined);
     const [EditIcon, setEditIcon] = useState(EditOutlined);
 
-
-
-    const handleOpenGallery = (id) => {
+    const handleOpenGallery = (name) => {
         alert("Workspace page will open");
     };
 
-    const handleLike = (id) => {
+    const handleLike = (name) => {
         alert("Workspace will be liked");
         if (HeartIcon === HeartOutlined)
             setHeartIcon(HeartFilled);
@@ -51,28 +48,20 @@ export default function GalleryView({searchParams, setSearchParams, filterText, 
     const galleryList = filteredGallery.map(directory => {
         return (
             <div key={directory.id} id='gallery-class-card'>
-                <div id='card-left-content-container'>
-                    <h1 id='card-title'>{directory.name}</h1>
-                    <h1 id='card-title'>Created by: {directory.author}</h1>
-                    <div id='card-button-container' className='flex flex-row'>
-                        <button onClick={() => handleOpenGallery(DemoData.id)}>
-                            Open
-                        </button>
-                    </div>
+                <div id='card-upper-content-container' onClick={() => handleOpenGallery(directory.name)}>
+                  <img src={placeholderImage} alt='placeholder'/>
                 </div>
-                <div id='card-right-content-container'>
-                    <button id='likeButton' style={{marginBottom: '0vh'}} onClick={() => handleLike(DemoData.id)}>
-                        <HeartIcon size={64}/>
+
+                <div id='card-lower-content-container'>
+                  <div id='card-lower-left-content-container'>
+                    {directory.name}
+                  </div>
+
+                  <div id='card-lower-right-content-container'>
+                    <button id='likeButton' onClick={() => handleLike(directory.name)}>
+                        <HeartIcon/>
                     </button>
-                    <button id='copy-edit-button' onClick={() => handleCopyEdit(DemoData.id)}>
-                        <CopyIcon size={64} style={{marginTop: '0vh'}}/>/
-                        <EditIcon size={64} style={{marginTop: '0vh'}}/>
-                    </button>
-                    <div id='divider' style={{marginTop: '0vh', marginBottom: '2vh'}}/>
-                    <div id='student-number-container'>
-                        <h1 id='number'>0</h1>
-                        <p id='label'>Views</p>
-                    </div>
+                  </div>
                 </div>
             </div>
         )
@@ -83,3 +72,9 @@ export default function GalleryView({searchParams, setSearchParams, filterText, 
         </div>
     );
 }
+/*
+<button id='copy-edit-button' onClick={() => handleCopyEdit(DemoData.id)}>
+                      <CopyIcon size={64} />/
+                      <EditIcon size={64} />
+                  </button>
+*/

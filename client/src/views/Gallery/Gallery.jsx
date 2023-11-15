@@ -17,10 +17,6 @@ export default function Gallery(props) {
         setFilterText(value.target.value);
     }
 
-export default function Gallery(props) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [privacySetting, setPrivacy] = useState("Public")
-
     const handlePublicButton = () => {
         setPrivacy("Public");
         alert("Displaying only Public projects");
@@ -33,6 +29,7 @@ export default function Gallery(props) {
         setPrivacy("Organization");
         alert("Displaying only Organization projects");
     }
+    
     return (
         <div className="container nav-padding">
             <NavBar />
