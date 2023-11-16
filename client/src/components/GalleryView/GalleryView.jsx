@@ -3,6 +3,7 @@ import { HeartOutlined, HeartFilled, CopyOutlined, EditOutlined } from '@ant-des
 import './GalleryView.less';
 import DemoData from '../../../DemoData.json';
 import GalleryEdit from '../GalleryEdit/GalleryEdit';
+import placeholderImage from "../../assets/placeholder-gallery-image.jpg";
 
 export default function GalleryView({searchParams,setSearchParams,filterText,classroomId, privacySetting,}) {
   const [tab, setTab] = useState(
@@ -21,9 +22,9 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
       GalleryEditBtn: false,
     }))
   );
-
-  const handleOpenGallery = () => {
-    alert('Workspace page will open');
+  
+  const handleOpenGallery = (name) => {
+     alert("Workspace page will open");
   };
 
   const handleLike = (index) => {
@@ -59,33 +60,44 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
       entry.name.toLowerCase().includes(filterText.toLowerCase())
   );
 
-  // The list is displayed as cards and filters as input is typed in the search bar
-  const galleryList = filteredGallery.map((directory, index) => {
-    const {
-      HeartIcon: GalleryHeartIcon,
-      CopyIcon: GalleryCopyIcon,
-      EditIcon: GalleryEditIcon,
-      GalleryEditBtn: GalleryEditBtnState,
-    } = galleryStates[index];
+    // The list is displayed as cards and filters as input is typed in the search bar
+    // TODO: Check margins if format looks weird
+    const galleryList = filteredGallery.map((directory, index) => {
+      const {
+        HeartIcon: GalleryHeartIcon,
+        CopyIcon: GalleryCopyIcon,
+        EditIcon: GalleryEditIcon,
+        GalleryEditBtn: GalleryEditBtnState,
+      } = galleryStates[index];
+        
+      return (
+            <div key={directory.id} id='gallery-class-card'>
+                <div id='card-upper-content-container' onClick={() => handleOpenGallery(directory.name)}>
+                  <img src={placeholderImage} alt='placeholder'/>
+                </div>
 
+                <div id='card-lower-content-container'>
+                  <div id='card-lower-left-content-container'>
+                    {directory.name}
+                  </div>
+
+                  <div id='card-lower-right-content-container'>
+                    <button id='likeButton' onClick={() => handleLike(index)}}>
+                        <GalleryHeartIcon size={64} />
+                    </button>
+                  </div>
+                </div>
+            </div>
+        )
+    })
     return (
-      <div key={directory.id} id="gallery-class-card">
-        <div id="card-left-content-container">
-          <h1 id="card-title">{directory.name}</h1>
-          <h1 id="card-title">Created by: {directory.author}</h1>
-          <div id="card-button-container" className="flex flex-row">
-            <button onClick={() => handleOpenGallery()}>Open</button>
-          </div>
+        <div id='gallery-card-container'>
+            {galleryList}
         </div>
-        <div id="card-right-content-container">
-          <button
-            id="likeButton"
-            style={{ marginBottom: '0vh' }}
-            onClick={() => handleLike(index)}
-          >
-            <GalleryHeartIcon size={64} />
-          </button>
-          <button
+    );
+}
+/*
+<button
             id="copy-edit-button"
             onClick={() => handleCopyEdit(index, true)}
           >
@@ -101,18 +113,4 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
           >
             <h3>Edit</h3>
           </GalleryEdit>
-          <div
-            id="divider"
-            style={{ marginTop: '0vh', marginBottom: '2vh' }}
-          />
-          <div id="student-number-container">
-            <h1 id="number">0</h1>
-            <p id="label">Views</p>
-          </div>
-        </div>
-      </div>
-    );
-  });
-
-  return <div id="gallery-card-container">{galleryList}</div>;
-}
+*/

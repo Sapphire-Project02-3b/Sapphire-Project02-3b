@@ -6,7 +6,6 @@ import "./Gallery.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
-
 export default function Gallery(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [privacySetting, setPrivacy] = useState("Public")
@@ -38,6 +37,7 @@ export default function Gallery(props) {
         setPrivacy("Organization");
         alert("Displaying only Organization projects");
     }
+
     return (
         <div className="container nav-padding">
             <NavBar />
@@ -63,4 +63,5 @@ export default function Gallery(props) {
             </div>
         </div>
     )
+
 }
