@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import './GalleryEdit.less'
 import EditPage from '../EditPage/EditPage'
 import BlocklyPage from "../../views/BlocklyPage/BlocklyPage";
-import {Divider} from "antd";
+import { CloseOutlined } from '@ant-design/icons';
 
 function GalleryEdit(props) {
 
@@ -11,7 +11,7 @@ function GalleryEdit(props) {
         <div className="popup">
             <div className="popup-inner">
                 <button className="close-btn" onClick={() => props.setTrigger(false)}>
-                    x
+                    <CloseOutlined/>
                 </button>
                 {props.children}
 
