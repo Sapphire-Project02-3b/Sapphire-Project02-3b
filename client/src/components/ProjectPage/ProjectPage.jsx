@@ -59,8 +59,11 @@ export default function ProjectPage(props) {
                             </div>
                         </div>
                         <div id='discussion'>
-                            Discussion Board
+                            <u>Discussion Board</u>
                             <div>
+                                <div id='comment-box'>
+                                    Discussion comments go here. . .
+                                </div>
                                 <form>
                                     <input
                                         className="searchBar"
