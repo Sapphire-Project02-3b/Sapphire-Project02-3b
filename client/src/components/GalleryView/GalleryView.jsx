@@ -5,7 +5,7 @@ import DemoData from '../../../DemoData.json';
 import ProjectPage from '../ProjectPage/ProjectPage';
 import placeholderImage from "../../assets/placeholder-gallery-image.jpg";
 
-export default function GalleryView({searchParams,setSearchParams,filterText,classroomId, privacySetting,}) {
+export default function GalleryView({searchParams,setSearchParams,filterText, privacySetting, LikeData, likedData, showLiked}) {
   const [tab, setTab] = useState(
     searchParams.has('tab') ? searchParams.get('tab') : 'home'
   );
@@ -29,7 +29,9 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
       });
   };
 
-  const handleLike = (index) => {
+  const handleLike = (index, name) => {
+    LikeData(name);
+
     setGalleryStates((prevStates) => {
       const updatedStates = [...prevStates];
       const newHeartIcon =
@@ -41,10 +43,20 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
     });
   };
 
-  // Set workspaceList with the entries from JSON data and filter for privacy setting
-  const filteredData = DemoData.entries.filter((entry) =>
-    entry.privacy.toLowerCase().includes(privacySetting.toLowerCase())
-  );
+  let filteredData = DemoData;
+  if (showLiked) {
+    filteredData = DemoData.entries.filter((entry) =>
+      likedData.includes(entry.name)
+    );
+  }
+  else {
+    // Set workspaceList with the entries from JSON data and filter for privacy setting
+    filteredData = DemoData.entries.filter((entry) =>
+      entry.privacy.toLowerCase().includes(privacySetting.toLowerCase())
+    );
+  }
+  
+  
 
   // Filters the workspaceList based on input item name or author (not case-sensitive)
   const filteredGallery = filteredData.filter(
@@ -79,7 +91,7 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
                         description={directory.description}
                     />
                   <div id='card-lower-right-content-container'>
-                    <button id='likeButton' onClick={() => handleLike(index)}>
+                    <button id='likeButton' onClick={() => handleLike(index, directory.name)}>
                         <GalleryHeartIcon size={64} />
                     </button>
                   </div>
