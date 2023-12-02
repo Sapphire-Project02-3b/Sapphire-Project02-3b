@@ -1,134 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Popconfirm, message } from 'antd';
-import { SmileOutlined, HeartOutlined } from '@ant-design/icons';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import {
-    getAuthorizedWorkspaces,
-    getClassroomWorkspace,
-    getSubmission,
-    deleteAuthorizedWorkspace,
-  } from '../../Utils/requests';
+import React, { useState } from 'react';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons';
+import './GalleryView.less';
+import DemoData from '../../../DemoData.json';
+import ProjectPage from '../ProjectPage/ProjectPage';
+import placeholderImage from "../../assets/placeholder-gallery-image1.jpg";
+//import { getGalleryActivity } from '@utils/requests';
 
-
-export default function GalleryView({searchParams, setSearchParams, classroomId}){
-    const [workspaceList, setWorkspaceList] = useState([]);
+export default function GalleryView({searchParams,setSearchParams,filterText,classroomId, privacySetting,}) {
     const [tab, setTab] = useState(
         searchParams.has('tab') ? searchParams.get('tab') : 'home'
     );
     const [page, setPage] = useState(
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          let wsResponse;
-          if (classroomId) {
-            wsResponse = await getClassroomWorkspace(classroomId);
-          } else {
-            wsResponse = await getAuthorizedWorkspaces();
-          }
-      
-          console.log('API Response:', wsResponse);
-      
-          setWorkspaceList(wsResponse.data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-      
-  
-      fetchData();
-    }, [classroomId]);
     
-    const wsColumn = [
-        {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          editable: true,
-          width: '20%',
-          align: 'center',
-          render: (_, key) => key.name,
-        },
-        {
-          title: 'Description',
-          dataIndex: 'description',
-          key: 'description',
-          editable: true,
-          width: '40%',
-          align: 'center',
-          render: (_, key) => key.description,
-        },
-        {
-          title: 'Open Workspace',
-          dataIndex: 'open',
-          key: 'open',
-          editable: false,
-          width: '10%',
-          align: 'center',
-          render: (_, key) => (
-            <Link
-              onClick={() =>
-                localStorage.setItem('sandbox-activity', JSON.stringify(key))
-              }
-              to={'/sandbox'}
-            >
-              Open
-            </Link>
-          ),
-        },
-        {
-          title: 'Views',
-          dataIndex: 'Views',
-          key: 'Views',
-          editable: true,
-          width: '10%',
-          align: 'left',
-          //will need to change rendering to render the views
-          render: (_, key) => key.description,
-        },
-        {
-            title: 'Like',
-            dataIndex: 'like',
-            key: 'like',
-            width: '10%',
-            align: 'center',
-            render: (_, key) => (
-                <Popconfirm
-                    title={'Like this workspace?'}
-                    icon={<SmileOutlined style={{ color: 'blue' }} />}
-                    onConfirm={async () => {
 
-                        }
-                    }
-                >
-                    <button id={'link-btn'}>
-                        <HeartOutlined style={{ color: 'grey' }}/>
-                    </button>
-                </Popconfirm>
-            ),
-        },
-    ];
+    // Modify the state management for each gallery
+    const [galleryStates, setGalleryStates] = useState(
+        DemoData.entries.map(() => ({
+            HeartIcon: HeartOutlined,
+            ProjectPageBtn: false,
+        }))
+    );
 
-    return (
-        <div>
-            <div
-                id='content-creator-table-container'
-                style={{ marginTop: '6.6vh' }}
-            >
-                <Table
-                    columns={wsColumn}
-                    dataSource={workspaceList}
-                    rowClassName='editable-row'
-                    rowKey='id'
-                    onChange={(Pagination) => {
-                        setPage(Pagination.current);
-                        setSearchParams({ tab, page: Pagination.current });
-                    }}
-                    pagination={{ current: page ? page : 1 }}
-                ></Table>
+    const handleOpenGallery = (index, value) => {
+        setGalleryStates((prevStates) => {
+            const updatedStates = [...prevStates];
+            updatedStates[index] = { ...prevStates[index], ProjectPageBtn: value };
+            return updatedStates;
+        });
+    };
+
+    const handleLike = (index) => {
+        setGalleryStates((prevStates) => {
+            const updatedStates = [...prevStates];
+            const newHeartIcon =
+                prevStates[index].HeartIcon === HeartOutlined
+                    ? HeartFilled
+                    : HeartOutlined;
+            updatedStates[index] = { ...prevStates[index], HeartIcon: newHeartIcon };
+            return updatedStates;
+        });
+    };
+
+    // Set workspaceList with the entries from JSON data and filter for privacy setting
+    const filteredData = DemoData.entries.filter((entry) =>
+        entry.privacy.toLowerCase().includes(privacySetting.toLowerCase())
+    );
+
+    // Filters the workspaceList based on input item name or author (not case-sensitive)
+    const filteredGallery = filteredData.filter(
+        (entry) =>
+            entry.author.toLowerCase().includes(filterText.toLowerCase()) ||
+            entry.name.toLowerCase().includes(filterText.toLowerCase())
+    );
+
+    // The list is displayed as cards and filters as input is typed in the search bar
+    // TODO: Check margins if format looks weird
+    const galleryList = filteredGallery.map((directory, index) => {
+        const {
+            HeartIcon: GalleryHeartIcon,
+            ProjectPageBtn: ProjectPageBtnState,
+        } = galleryStates[index];
+
+        return (
+            <div key={directory.id} id='gallery-class-card'>
+                <div id='card-upper-content-container' onClick={() => handleOpenGallery(index, true)}>
+                    <img src={placeholderImage} alt='placeholder'/>
+                </div>
+                <div id='card-lower-content-container'>
+                    <div id='card-lower-left-content-container' onClick={() => handleOpenGallery(index, true)}>
+                        {directory.name}
+                    </div>
+                    <ProjectPage
+                        trigger={ProjectPageBtnState}
+                        setTrigger={(value) => handleOpenGallery(index, value)}
+                        index={index}
+                        name={directory.name}
+                        author={directory.author}
+                        description={directory.description}
+                    />
+                    <div id='card-lower-right-content-container'>
+                        <button id='likeButton' onClick={() => handleLike(index)}>
+                            <GalleryHeartIcon size={64} />
+                        </button>
+                    </div>
+                </div>
             </div>
+        )
+    })
+    return (
+        <div id='gallery-card-container'>
+            {galleryList}
         </div>
-    )
+    );
 }

@@ -1,27 +1,31 @@
 import './Search.less'
 
 import React from 'react';
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
-function Search() {
+function Search({ filterUpdate, filterText }) {
+    // useRef() to allow input to be mutable for when it is being typed into the search bar
     const input = useRef();
 
-    function handleChange() {
-        // TODO: Update the value of the filter with the input from the textbox
-        // Hint: You will need to use the "current" property of the input variable
-        // console.log("handleChange called");
-        filterUpdate(input.current.value);
+    // Focuses the cursor on the search bar when the gallery page is opened
+    useEffect(() => {
+        input.current.focus();
+    }, []);
+
+    // Sets the filterText to the typed input
+    function handleChange(event) {
+        filterUpdate(event);
     }
 
+    // Shows the input as it is typed in the search bar
     return (
-        // TODO: Add a ref attribute to the input tag
-        // TODO: Add an onChange attribute to the input tag
         <form>
             <input
                 className="searchBar"
-                type="text"
-                placeholder="Type to Filter"
                 ref={input}
+                type="text"
+                placeholder="Type to Filter. . ."
+                value={filterText}
                 onChange={handleChange}
             />
         </form>
