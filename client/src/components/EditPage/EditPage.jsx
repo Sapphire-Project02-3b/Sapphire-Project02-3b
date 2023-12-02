@@ -2,6 +2,7 @@ import { message } from "antd"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import BlocklyCanvasPanel from "../../components/ActivityPanels/BlocklyCanvasPanel/BlocklyCanvasPanel"
+import EditCanvas from "./EditCanvas/EditCanvas";
 import NavBar from "../../components/NavBar/NavBar"
 import {
     getAuthorizedWorkspaceToolbox,
@@ -9,6 +10,7 @@ import {
     getActivityToolboxAll,
 } from "../../Utils/requests"
 import { useGlobalState } from "../../Utils/userState"
+import PublicEdit from "./EditCanvas/PublicEdit";
 
 export default function EditPage({ isSandbox }) {
     const [value] = useGlobalState("currUser")
@@ -73,10 +75,8 @@ export default function EditPage({ isSandbox }) {
     }, [isSandbox, navigate, value.role])
 
     return (
-        <div className="container nav-padding">
-            <div className="flex flex-row">
-                <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
-            </div>
+        <div className="flex flex-row">
+            <EditCanvas activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
         </div>
     )
 }
