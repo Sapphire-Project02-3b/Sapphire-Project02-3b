@@ -6,7 +6,7 @@ import ProjectPage from '../ProjectPage/ProjectPage';
 import placeholderImage from "../../assets/placeholder-gallery-image1.jpg";
 //import { getGalleryActivity } from '@utils/requests';
 
-export default function GalleryView({searchParams,setSearchParams,filterText,classroomId, privacySetting,}) {
+export default function GalleryView({searchParams,setSearchParams,filterText, privacySetting, LikeData, likedData, showLiked}) {
     const [tab, setTab] = useState(
         searchParams.has('tab') ? searchParams.get('tab') : 'home'
     );
