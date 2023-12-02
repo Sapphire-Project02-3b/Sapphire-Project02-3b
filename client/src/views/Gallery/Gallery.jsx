@@ -11,6 +11,9 @@ export default function Gallery() {
     const [privacySetting, setPrivacy] = useState("Public")
     // useState() to allow the filterText to be updated when input is typed
     const [filterText, setFilterText] = useState('');
+    const [likedData, setLikedData] = useState([]);
+    const [showLiked, setShowLiked] = useState(false);
+
 
     // Function to update filterText called in Search
     function filterUpdate(value) {
@@ -27,15 +30,28 @@ export default function Gallery() {
 
     const handlePublicButton = () => {
         setPrivacy("Public");
-        alert("Displaying only Public projects");
+        setShowLiked(false);
     }
     const handleClassroomButton = () => {
         setPrivacy("Classroom");
-        alert("Displaying only Classroom projects");
+        setShowLiked(false);
     }
     const handleOrganizationButton = () => {
         setPrivacy("Organization");
-        alert("Displaying only Organization projects");
+        setShowLiked(false);
+    }
+
+    const viewLikes = () => {
+        setShowLiked(true);
+    }
+
+    function LikeData(name) {
+        if (likedData.includes(name)) {
+            setLikedData(unlike => {return unlike.filter(likedData => likedData !== name)});
+        }
+        else {
+            setLikedData([...likedData, name]);
+        }
     }
 
     return (
@@ -49,6 +65,7 @@ export default function Gallery() {
                     <button onClick={handlePublicButton}>Public</button>
                     <button onClick={handleClassroomButton}>Classroom</button>
                     <button onClick={handleOrganizationButton}>Organization</button>
+                    <button onClick={viewLikes}>My Likes</button>
                 </div>
                 <Search
                     filterUpdate={filterUpdate}
@@ -59,6 +76,9 @@ export default function Gallery() {
                     setSearchParams={setSearchParams}
                     filterText={filterText}
                     privacySetting={privacySetting}
+                    LikeData={LikeData}
+                    likedData={likedData}
+                    showLiked={showLiked}
                 />
             </div>
         </div>

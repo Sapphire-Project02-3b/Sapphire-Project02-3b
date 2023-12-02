@@ -31,22 +31,32 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
         });
     };
 
-    const handleLike = (index) => {
-        setGalleryStates((prevStates) => {
-            const updatedStates = [...prevStates];
-            const newHeartIcon =
-                prevStates[index].HeartIcon === HeartOutlined
-                    ? HeartFilled
-                    : HeartOutlined;
-            updatedStates[index] = { ...prevStates[index], HeartIcon: newHeartIcon };
-            return updatedStates;
-        });
+    const handleLike = (index, name) => {
+      LikeData(name);
+
+      setGalleryStates((prevStates) => {
+        const updatedStates = [...prevStates];
+        const newHeartIcon =
+          prevStates[index].HeartIcon === HeartOutlined
+            ? HeartFilled
+            : HeartOutlined;
+        updatedStates[index] = { ...prevStates[index], HeartIcon: newHeartIcon };
+        return updatedStates;
+      });
     };
 
-    // Set workspaceList with the entries from JSON data and filter for privacy setting
-    const filteredData = DemoData.entries.filter((entry) =>
+    let filteredData = DemoData;
+    if (showLiked) {
+      filteredData = DemoData.entries.filter((entry) =>
+        likedData.includes(entry.name)
+      );
+    }
+    else {
+      // Set workspaceList with the entries from JSON data and filter for privacy setting
+      filteredData = DemoData.entries.filter((entry) =>
         entry.privacy.toLowerCase().includes(privacySetting.toLowerCase())
-    );
+      );
+    }
 
     // Filters the workspaceList based on input item name or author (not case-sensitive)
     const filteredGallery = filteredData.filter(
@@ -80,11 +90,11 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
                         author={directory.author}
                         description={directory.description}
                     />
-                    <div id='card-lower-right-content-container'>
-                        <button id='likeButton' onClick={() => handleLike(index)}>
-                            <GalleryHeartIcon size={64} />
-                        </button>
-                    </div>
+                  <div id='card-lower-right-content-container'>
+                    <button id='likeButton' onClick={() => handleLike(index, directory.name)}>
+                        <GalleryHeartIcon size={64} />
+                    </button>
+                  </div>
                 </div>
             </div>
         )
