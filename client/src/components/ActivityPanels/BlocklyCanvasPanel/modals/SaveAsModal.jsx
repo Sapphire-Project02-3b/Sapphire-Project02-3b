@@ -5,15 +5,15 @@ import { getAuthorizedWorkspaceToolbox } from '../../../../Utils/requests';
 import { useGlobalState } from '../../../../Utils/userState';
 
 export default function SaveAsModal({
-  workspaceRef,
-  studentToolbox,
-  visible,
-  setVisible,
-  activity,
-  setActivity,
-  isSandbox,
-  classroomId,
-}) {
+                                      workspaceRef,
+                                      studentToolbox,
+                                      visible,
+                                      setVisible,
+                                      activity,
+                                      setActivity,
+                                      isSandbox,
+                                      classroomId,
+                                    }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [value] = useGlobalState('currUser');
@@ -30,11 +30,11 @@ export default function SaveAsModal({
 
   const handleSaveAs = async () => {
     const res = await handleSaveAsWorkspace(
-      name,
-      description,
-      workspaceRef,
-      studentToolbox,
-      classroomId
+        name,
+        description,
+        workspaceRef,
+        studentToolbox,
+        classroomId
     );
     if (res.err) {
       message.error(res.err);
@@ -64,68 +64,68 @@ export default function SaveAsModal({
   };
 
   return (
-    <div>
-      <Menu.Item id='menu-save' onClick={showModal}>
-        <i className='fa fa-save'></i>
-        <i id='pencil-icon' className='fas fa-pencil-alt'></i>
-        &nbsp;Save As
-      </Menu.Item>
-      <Modal
-        title='Save As'
-        visible={visible}
-        onCancel={handleCancel}
-        width='25vw'
-        footer={null}
-      >
-        <Form
-          layout='horizontal'
-          size='default'
-          labelCol={{
-            span: 7,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
-          onFinish={handleSaveAs}
+      <div>
+        <Menu.Item id='menu-save' onClick={showModal}>
+          <i className='fa fa-save'></i>
+          <i id='pencil-icon' className='fas fa-pencil-alt'></i>
+          &nbsp;Save As
+        </Menu.Item>
+        <Modal
+            title='Save As'
+            visible={visible}
+            onCancel={handleCancel}
+            width='25vw'
+            footer={null}
         >
-          <Form.Item label='Workspace Name: '>
-            <Input
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              type='text'
-              placeholder='Enter workspace name'
-              required
-            ></Input>
-          </Form.Item>
-          <Form.Item label='Description: '>
-            <Input.TextArea
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
-              type='text'
-              placeholder='Enter description'
-              required
-            ></Input.TextArea>
-          </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              offset: 2,
-              span: 20,
-            }}
-            style={{ marginBottom: '0px' }}
+          <Form
+              layout='horizontal'
+              size='default'
+              labelCol={{
+                span: 7,
+              }}
+              wrapperCol={{
+                span: 14,
+              }}
+              onFinish={handleSaveAs}
           >
-            <Button
-              type='primary'
-              htmlType='submit'
-              className='content-creator-button'
+            <Form.Item label='Workspace Name: '>
+              <Input
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  type='text'
+                  placeholder='Enter workspace name'
+                  required
+              ></Input>
+            </Form.Item>
+            <Form.Item label='Description: '>
+              <Input.TextArea
+                  onChange={(e) => setDescription(e.target.value)}
+                  value={description}
+                  type='text'
+                  placeholder='Enter description'
+                  required
+              ></Input.TextArea>
+            </Form.Item>
+            <Form.Item
+                wrapperCol={{
+                  offset: 2,
+                  span: 20,
+                }}
+                style={{ marginBottom: '0px' }}
             >
-              Submit
-            </Button>
-            <Button onClick={handleCancel} className='content-creator-button'>
-              Cancel
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
-    </div>
+              <Button
+                  type='primary'
+                  htmlType='submit'
+                  className='content-creator-button'
+              >
+                Submit
+              </Button>
+              <Button onClick={handleCancel} className='content-creator-button'>
+                Cancel
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
+      </div>
   );
 }

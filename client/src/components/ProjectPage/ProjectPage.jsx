@@ -61,9 +61,6 @@ export default function ProjectPage(props) {
                         <div id='discussion'>
                             <u>Discussion Board</u>
                             <div>
-                                <div id='comment-box'>
-                                    Discussion comments go here. . .
-                                </div>
                                 <form>
                                     <input
                                         className="searchBar"
@@ -71,6 +68,26 @@ export default function ProjectPage(props) {
                                         placeholder="Type to comment. . ."
                                     />
                                 </form>
+                                <div id='comment-box'>
+                                    <p id='comment-text'>
+                                        Discussion comments go here. . .
+                                    </p>
+                                </div>
+                                <div id='comment-box'>
+                                    <p id='comment-text'>
+                                        Discussion comments go here. . .
+                                    </p>
+                                </div>
+                                <div id='comment-box'>
+                                    <p id='comment-text'>
+                                        Discussion comments go here. . .
+                                    </p>
+                                </div>
+                                <div id='comment-box'>
+                                    <p id='comment-text'>
+                                        Discussion comments go here. . .
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
