@@ -6,7 +6,7 @@ import "./Gallery.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
-export default function Gallery(props) {
+export default function Gallery() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [privacySetting, setPrivacy] = useState("Public")
     // useState() to allow the filterText to be updated when input is typed
@@ -47,7 +47,7 @@ export default function Gallery(props) {
             <div id="gallery-content-container">
                 <div id="Privacy-buttons">
                     <button onClick={handlePublicButton}>Public</button>
-                    <button onClick={handleClassroomButton}>Clasroom</button>
+                    <button onClick={handleClassroomButton}>Classroom</button>
                     <button onClick={handleOrganizationButton}>Organization</button>
                 </div>
                 <Search
