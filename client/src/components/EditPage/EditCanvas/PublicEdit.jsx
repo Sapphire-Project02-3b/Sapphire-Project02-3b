@@ -17,6 +17,7 @@ import PlotterLogo from '../../ActivityPanels/BlocklyCanvasPanel/Icons/PlotterLo
 let plotId = 1;
 
 export default function PublicEdit({ activity, isSandbox }) {
+    // Code for the blockly canvas from PublicCanvas
     const [hoverUndo, setHoverUndo] = useState(false);
     const [hoverRedo, setHoverRedo] = useState(false);
     const [hoverCompile, setHoverCompile] = useState(false);

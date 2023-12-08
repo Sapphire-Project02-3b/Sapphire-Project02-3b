@@ -1,5 +1,4 @@
 import React from 'react';
-import PublicCanvas from '../../ActivityPanels/BlocklyCanvasPanel/canvas/PublicCanvas';
 import StudentCanvas from '../../ActivityPanels/BlocklyCanvasPanel/canvas/StudentCanvas';
 import MentorCanvas from '../../ActivityPanels/BlocklyCanvasPanel/canvas/MentorCanvas';
 import ContentCreatorCanvas from '../../ActivityPanels/BlocklyCanvasPanel/canvas/ContentCreatorCanvas';
@@ -12,6 +11,7 @@ const EditCanvas = ({ activity, isSandbox, setActivity }) => {
     const userRole = value.role;
 
     switch (userRole) {
+        // Changes canvas view depending on the user's role
         case 'DefaultUser':
             return <PublicEdit activity={activity} isSandbox={isSandbox} />;
         case 'Student':

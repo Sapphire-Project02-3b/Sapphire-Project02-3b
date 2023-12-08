@@ -1,16 +1,13 @@
 import { message } from "antd"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import BlocklyCanvasPanel from "../../components/ActivityPanels/BlocklyCanvasPanel/BlocklyCanvasPanel"
 import EditCanvas from "./EditCanvas/EditCanvas";
-import NavBar from "../../components/NavBar/NavBar"
 import {
     getAuthorizedWorkspaceToolbox,
     getActivityToolbox,
     getActivityToolboxAll,
 } from "../../Utils/requests"
 import { useGlobalState } from "../../Utils/userState"
-import PublicEdit from "./EditCanvas/PublicEdit";
 
 export default function EditPage({ isSandbox }) {
     const [value] = useGlobalState("currUser")
@@ -74,6 +71,7 @@ export default function EditPage({ isSandbox }) {
         setup()
     }, [isSandbox, navigate, value.role])
 
+    // Allows the edit mode to show as a blockly canvas
     return (
         <div className="flex flex-row">
             <EditCanvas activity={activity} setActivity={setActivity} isSandbox={isSandbox} />

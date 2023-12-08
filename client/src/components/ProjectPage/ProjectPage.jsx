@@ -73,21 +73,6 @@ export default function ProjectPage(props) {
                                         Discussion comments go here. . .
                                     </p>
                                 </div>
-                                <div id='comment-box'>
-                                    <p id='comment-text'>
-                                        Discussion comments go here. . .
-                                    </p>
-                                </div>
-                                <div id='comment-box'>
-                                    <p id='comment-text'>
-                                        Discussion comments go here. . .
-                                    </p>
-                                </div>
-                                <div id='comment-box'>
-                                    <p id='comment-text'>
-                                        Discussion comments go here. . .
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>

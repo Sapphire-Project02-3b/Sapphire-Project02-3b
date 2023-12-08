@@ -1,12 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 import './GalleryEdit.less'
 import EditPage from '../EditPage/EditPage'
-import BlocklyPage from "../../views/BlocklyPage/BlocklyPage";
 import { CloseOutlined } from '@ant-design/icons';
 
 function GalleryEdit(props) {
 
-
+    // Creates a popup window for the edit mode
     return (props.trigger) ? (
         <div className="popup">
             <div className="popup-inner">
