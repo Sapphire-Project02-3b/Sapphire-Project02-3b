@@ -1,3 +1,98 @@
+# Group 3b - Project #2 - Sapphire Division
+
+| Role | Name |
+| --------------- | ------------- |
+| Project Manager | Shane Barrera |
+| Scrum Master | Paige Reeves |
+| Developer | Max Plummer |
+| Developer | Pablo Gonzalez |
+
+### Project Description
+This team will be responsible for a new gallery-like feature for users to share, find, and edit other users’ work. They will be in charge of figuring out how to share users’ relevant galleries as well as permit access to specific information based on access type. Ultimately, the gallery works to help users share and draw inspirations from other classroom submissions, as well as build a sense of community within the app. Thus, accommodating a fluid display, search mechanism, and filtering method pertaining to users’ works is aimed to facilitate a seamless user experience.
+
+## Project Features Implemented
+
+### Grid Gallery
+- We developed a new navigation bar component to route to a multi-level ‘Gallery’ page. Correspondingly, a gridded display of projects is rendered to the screen with a search bar and privacy filters - Public, Classroom, Organization, and My Likes. Respectively, these buttons allow one to filter workspaces/submissions by name, user type, and likes. As a result, a unit, activity, and thumbnail appears in real-time on their display.
+
+<img width="783" alt="image1" src="https://github.com/Sapphire-Project02-3b/Sapphire-Project02-3b/assets/100697257/e7214f13-2ab1-42da-94c5-decb5d32ae05">
+
+### Project Page
+- Clicking on a gallery invokes a pop-up menu which displays: unit, activity name, description, and author. Additional categories include “related works” and a “discussion forum,” which respectively allow users to compare galleries and share information pertaining to their work.
+
+<img width="856" alt="image4" src="https://github.com/Sapphire-Project02-3b/Sapphire-Project02-3b/assets/100697257/381cc78a-2e94-4e4b-a898-6a90ca53e376">
+
+### Edit Mode
+- Clicking on the edit/copy button invokes another popup window of the most recently saved activity; students may edit blocks on this copy (sandbox) and save the session to their gallery.
+
+<img width="687" alt="image13" src="https://github.com/Sapphire-Project02-3b/Sapphire-Project02-3b/assets/100697257/4eaf9698-7da8-4ad9-80c6-f8c49f03a335">
+
+
+### Like Feature
+- Clicking the heart button on a gallery project “likes” the item and saves it to the user’s “My Likes” page. Correspondingly, users may filter gallery submissions that they’ve liked persistently.
+
+<img width="902" alt="image14" src="https://github.com/Sapphire-Project02-3b/Sapphire-Project02-3b/assets/100697257/68038653-2623-490d-a208-5ee0a6ebc8fc">
+
+
+### Privacy Settings
+- The user can filter the listed gallery projects by clicking one of the privacy buttons at the top of the page.
+  
+![image5](https://github.com/Sapphire-Project02-3b/Sapphire-Project02-3b/assets/100697257/5e3b7e59-de94-4625-9811-e3381e932d21)
+
+## How to run the application
+> Instructions to load the local server and docker are below (under CASMM).
+
+### `develop`
+- The develop branch holds all updated and functioning code that can be pulled from to load all the features
+
+## Backend Updates
+- We created a new “Gallery” endpoint in Strapi and provided corresponding entries with refined authorization for specific roles based on user-type. This involved implementing new “requests.js” in addition to previously existing ones, and validating using Swagger documentation.
+
+<img width="885" alt="image11" src="https://github.com/Sapphire-Project02-3b/Sapphire-Project02-3b/assets/100697257/78ba4980-9e19-4c0c-857a-ccfe0750449a">
+<img width="737" alt="image12" src="https://github.com/Sapphire-Project02-3b/Sapphire-Project02-3b/assets/100697257/7835eaba-c95d-4090-b4c4-a61b933327c8">
+
+## Test Credentials for Code-Sparks Repo
+
+### Strapi Admin:
+- username: superadmin@mail.com
+- password: TN9q6RZhDaw6
+
+### Default Accounts:
+
+Content Creator
+- username: contentcreator
+- password: easypassword
+  
+Teacher (has access to all classrooms)
+- username: teacher
+- password: easypassword
+
+Researcher
+- username: researcher
+- password: easypassword
+
+### Teachers
+
+MissFrizzle
+- username: MissFrizzle
+- password: easypassword
+  
+JohnKeating
+- username: JohnKeating
+- password: easypassword
+
+AlbusDumbledore
+- username: AlbusDumbledore
+- password: easypassword
+
+### Class Codes
+- 2005 (5th grade)
+- 1997 (6th grade)
+- 1994 (5th grade)
+- 2017 (6th grade)
+- 1988 (5th grade)
+- 1989 (6th grade)
+
 # CaSMM
 
 > Computation and Science Modeling through Making
